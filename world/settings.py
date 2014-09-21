@@ -30,12 +30,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'search_game',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -79,6 +81,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
+
+LOGIN_URL = 'login' #refers to name of url, not the actual link
+LOGIN_REDIRECT_URL = 'profile'
 
 STATIC_URL = '/static/'
 
