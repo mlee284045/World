@@ -1,7 +1,28 @@
 {% extends 'base_template.html' %}
+{% load staticfiles %}
+{% load leaflet_tags %}
 
 {% block title %}Map{% endblock title %}
+{% block style %}
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock style %}
 
 {% block content %}
+    <h1>Where would you like to go next?</h1>
     <div id="map"></div>
+    <script>
+        var map = L.map('map').setView([{{ city.latitude }}, {{ city.longitude }}], 2);
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 11,
+            minZoom: 2
+        }).addTo(map);
+        var current = L.marker([{{ city.latitude }}, {{ city.longitude }}], 10).addTo(map);
+        current.bindPopup('<b>{{ city.name }}, {{ city.country }}</b><br>You are here.').openPopup();
+        var destination = L.marker({draggable:'true'});
+
+
+    </script>
 {% endblock content %}

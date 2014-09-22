@@ -1,0 +1,19 @@
+#map {
+    margin: 5%;
+    height: 300px;
+    width: 90%;
+}
+
+.button {
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-left: 35%;
+    width: 30%;
+    text-align: center;
+    background-color: gray;
+}
+
+#city {
+    color: black;
+    text-decoration: none;
+}

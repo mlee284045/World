@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from search_game.models import City
 from world import settings
 from search_game.forms import CreateSearch
 
@@ -24,3 +25,11 @@ def register(request):
 
 def profile(request):
     return render(request, 'profile.html')
+
+def map(request):
+    rocket_space = City.objects.filter(name='San Francisco')[1]
+    data = {'city': rocket_space}
+    return render(request, 'map.html', data)
+
+def city_view(request, city_id):
+    pass

@@ -17,8 +17,8 @@ class Location(models.Model):
     city = models.ForeignKey(City)
 
 
-# class Balance(models.Model):
-#     start = models.DateTimeField()
-#     end = models.DateTimeField()
-#     money = models.DecimalField(max_digits=7, decimal_places=2)
-#     user = models.OneToOneField(User, related_name='balance')
+class Balance(models.Model):
+    start = models.DateTimeField()
+    end = models.DateTimeField()
+    money = models.DecimalField(max_digits=7, decimal_places=2)
+    user = models.OneToOneField(User, related_name='balance')

@@ -5,8 +5,8 @@ urlpatterns = patterns('',
     url(r'^$', 'search_game.views.home', name='home'),
     url(r'^register/$', 'search_game.views.register', name='register'),
     url(r'^profile/$', 'search_game.views.profile', name='profile'),
-
-
+    url(r'^map/$', 'search_game.views.map', name='map'),
+    # url(r'^map/(?P<city_id>)\[')
 
     url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', name='logout'),
