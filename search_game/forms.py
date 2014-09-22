@@ -16,11 +16,6 @@ class CreateSearch(UserCreationForm):
             'password2',
         ]
 
-def get_city_choices():
-    return City.objects.all()
 
 class FindCity(forms.Form):
-    name = forms.ChoiceField(choices=get_city_choices())
-    test = forms.CharField(max_length=40)
-
-
+    destination = forms.ModelChoiceField(queryset=City.objects.all())

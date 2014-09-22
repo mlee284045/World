@@ -1,0 +1,12 @@
+{% extends 'base_template.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <h1>Welcome to {{ city.name }}, {{ user.username }}</h1>
+    <img src="{% static 'img/beijing-1.jpg' %}">
+    {% if user.balance.found %}
+        <h1>Congratulations on finding the person</h1>
+    {% else %}
+        <h1>Too bad! Person is not here</h1>
+    {% endif %}
+{% endblock content %}

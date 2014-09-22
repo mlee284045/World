@@ -4,8 +4,6 @@
 
 {% block title %}Map{% endblock title %}
 {% block style %}
-    {% leaflet_js %}
-    {% leaflet_css %}
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -13,12 +11,15 @@
 
 {% block content %}
     <h1>Where would you like to go next?</h1>
-    <form method="post" action="">
-        {% csrf_token %}
-        {{ form }}
+    <div>
+        <form method="post" action="">
+            {% csrf_token %}
+            {{ form }}
 
-        <input value="Search" type="submit">
-    </form>
+            <input value="Search" type="submit">
+        </form>
+    </div>
+    <div id="map"></div>
     <script>
         var map = L.map('map').setView([{{ current.latitude }}, {{ current.longitude }}], 2);
         L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -28,15 +29,9 @@
         }).addTo(map);
         var current = L.marker([{{ current.latitude }}, {{ current.longitude }}]).addTo(map);
         current.bindPopup('<b>{{ current.name }}, {{ current.country }}</b><br>You are here.').openPopup();
-        var destination = L.marker([{{ destination.latitude }}, {{ destination.longitude }}], {draggable:'true'});
+        {% if destination %}
+        var destination = L.marker([{{ destination.latitude }}, {{ destination.longitude }}], {draggable:'true'}).addTo(map);
+        destination.bindPopup('<b>{{ destination.name }}, {{ destination.country }}</b><br><br><div class="go"><a href="{% url 'city_view' destination.id %}">Go</a></div>').openPopup();
+        {% endif %}
     </script>
-    <script type="text/javascript">
-    function map_init_basic (map, options) {
-
-        L.marker([50.5, 30.5]).addTo(map);
-
-    }
-</script>
-
-    {% leaflet_map "" %}
 {% endblock content %}

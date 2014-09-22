@@ -1,6 +1,7 @@
 from datetime import timedelta
 from django.shortcuts import render, redirect
 from search_game.models import City, Balance
+from search_game.utils import hiding_person
 from world import settings
 from search_game.forms import CreateSearch, FindCity
 
@@ -28,17 +29,25 @@ def register(request):
 def profile(request):
     return render(request, 'profile.html')
 
+
 def map(request):
     rocket_space = City.objects.get(name='San Francisco')
     data = {'current': None, 'destination': None}
     if request.method == 'POST':
         form = FindCity(request.POST)
         if form.is_valid():
-            city = form.cleaned_data['name']
-            data = {'current': rocket_space, 'destination': city}
+            city = form.cleaned_data['destination']
+            data = {'form': form, 'current': rocket_space, 'destination': city}
     else:
-        data = {'current': rocket_space, 'destination': None}
+        form = FindCity()
+        data = {'current': rocket_space, 'destination': None, 'form': form}
     return render(request, 'map.html', data)
 
+
 def city_view(request, city_id):
-    pass
+    current = City.objects.get(id=city_id)
+    hidden = hiding_person()
+    if current == hidden:
+        request.user.balance.found = True
+    data = {'city': current}
+    return render(request, 'city_view.html', data)
