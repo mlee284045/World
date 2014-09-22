@@ -1,5 +1,4 @@
 import csv
-from psycopg2._psycopg import DataError
 from search_game.models import City
 
 
@@ -13,7 +12,7 @@ def create_cities(f):
                 else:
                     City.objects.create(name=row[3], country=row[1], latitude=float(row[5]), longitude=float(row[6]))
                 print row[1], row[3], row[5], row[6]
-            except (IndexError, ValueError, DataError):
+            except (IndexError, ValueError):
                 pass
             # loc_id, country, region, city, postal, latitude, longitude, metrocode, areacode = row
             # country = row[1]

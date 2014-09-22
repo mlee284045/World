@@ -1,5 +1,6 @@
+from datetime import timedelta
 from django.shortcuts import render, redirect
-from search_game.models import City
+from search_game.models import City, Balance
 from world import settings
 from search_game.forms import CreateSearch
 
@@ -16,6 +17,7 @@ def register(request):
         if form.is_valid():
             current_user = form.save()
             current_user.email_user('Welcome!', 'Thanks for joining our website.', settings.DEFAULT_FROM_EMAIL)
+            Balance.objects.create(user=current_user, start=current_user.date_joined, end=(current_user.date_joined+timedelta(days=14)))
 
             return redirect('profile')
     else:
