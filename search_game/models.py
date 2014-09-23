@@ -4,20 +4,23 @@ from django.db import models
 # Create your models here.
 
 class City(models.Model):
+    current = models.BooleanField(default=False)
+    visited = models.BooleanField(default=False)
     name = models.CharField(max_length=50)
     country = models.CharField(max_length=2)
     latitude = models.DecimalField(max_digits=7, decimal_places=4)
     longitude = models.DecimalField(max_digits=7, decimal_places=4)
-    users = models.ManyToManyField(User, through='Location', blank=True)
+    users = models.ManyToManyField(User, blank=True, related_name='cities')
 
     def __unicode__(self):
         return self.name
 
+    def arrive(self):
+        self.current = True
+        self.visited = True
 
-class Location(models.Model):
-    current = models.BooleanField(default=True)
-    user = models.ForeignKey(User, related_name='location')
-    city = models.ForeignKey(City, related_name='location')
+    def leave(self):
+        self.current = False
 
 
 class Balance(models.Model):
@@ -45,4 +48,4 @@ class Balance(models.Model):
         return seconds/3600
 
     def get_time_left_days(self):
-        return self.get_time_left_hours()/24
+        return int(self.get_time_left_hours()/24)

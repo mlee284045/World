@@ -1,5 +1,5 @@
 from django.contrib import admin
-from search_game.models import City, Balance, Location
+from search_game.models import City, Balance
 # Register your models here.
 
 
@@ -11,6 +11,6 @@ class CityAdmin(admin.ModelAdmin):
 class BalanceAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(Location)
-class LocationAdmin(admin.ModelAdmin):
-    pass
+# @admin.register(Location)
+# class LocationAdmin(admin.ModelAdmin):
+#     pass

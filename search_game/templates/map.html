@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% endblock style %}
 
+{% block navigation %}
+    <li><a href="{% url 'profile' %}">Profile</a></li>
+    <li><a href="{% url 'logout' %}">Logout</a></li>
+{% endblock navigation %}
+
 {% block content %}
     <h1>Where would you like to go next?</h1>
     <div>
@@ -31,7 +36,7 @@
         current.bindPopup('<b>{{ current.name }}, {{ current.country }}</b><br>You are here.').openPopup();
         {% if destination %}
         var destination = L.marker([{{ destination.latitude }}, {{ destination.longitude }}], {draggable:'true'}).addTo(map);
-        destination.bindPopup('<b>{{ destination.name }}, {{ destination.country }}</b><br><br><div class="go"><a href="{% url 'city_view' destination.id %}">Go</a></div>').openPopup();
+        destination.bindPopup('<b>{{ destination.name }}, {{ destination.country }}</b><br>Costs: ${{ cost }}<a href="{% url 'city_view' destination.id %}"><div class="go">Go</div></a>').openPopup();
         {% endif %}
     </script>
 {% endblock content %}

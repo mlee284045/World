@@ -1,14 +1,23 @@
 {% extends 'base_template.html' %}
 
 {% block title %}Profile{% endblock title %}
+{#{% block link %}<link rel="stylesheet" href="{% static 'css/nav.css' %}">{% endblock %}#}
+
+{% block navigation %}
+    <li><a href="{% url 'profile' %}">Profile</a></li>
+    <li><a href="{% url 'map' %}">Search</a></li>
+    <li><a href="{% url 'logout' %}">Logout</a></li>
+{% endblock navigation %}
 
 {% block content %}
-    <h1>Your Profile</h1>
-    <h1>{{ user.username }}</h1>
+    <div class="container">
+    <h1>{{ user.username|capfirst }}</h1>
     <div>
-        <h4>{{ user.date_joined }}</h4>
-        <h4>{{ user.balance.start }}</h4>
-        <h4>{{ user.balance.money }}</h4>
-        <h4>{{ user.balance.found }}</h4>
+        <h4>You started the search on {{ user.date_joined }}</h4>
+        <h4>You have {{ user.balance.get_time_left_days }} days left to find the thing.</h4>
+        <h4>You have ${{ user.balance.money }} left</h4>
+        <h4>You have {% if user.balance.found %}found{% else %}not found{% endif %} the thing</h4>
+        <h4>You are currently at {{ city }}.</h4>
+    </div>
     </div>
 {% endblock content %}
