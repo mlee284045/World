@@ -1,7 +1,9 @@
 {% extends 'base_template.html' %}
+{% load staticfiles %}
 
 {% block title %}Profile{% endblock title %}
 {#{% block link %}<link rel="stylesheet" href="{% static 'css/nav.css' %}">{% endblock %}#}
+{% block style %}<link rel="stylesheet" href="{% static 'css/profile.css' %}">{% endblock style %}
 
 {% block navigation %}
     <li><a href="{% url 'profile' %}">Profile</a></li>
@@ -10,7 +12,7 @@
 {% endblock navigation %}
 
 {% block content %}
-    <div class="container">
+    <div class="panel">
     <h1>{{ user.username|capfirst }}</h1>
     <div>
         <h4>You started the search on {{ user.date_joined }}</h4>

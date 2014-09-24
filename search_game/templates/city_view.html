@@ -2,8 +2,13 @@
 {% load staticfiles %}
 
 {% block style %}
-    <link rel="stylesheet" href="{% static 'css/city_view.css' %}">
+    {% if user.balance.found %}
+        <link rel="stylesheet" href="{% static 'css/city_view.css' %}">
+    {% else %}
+        <link rel="stylesheet" href="{% static 'css/not_found.css' %}">
+    {% endif %}
 {% endblock style %}
+
 
 {% block navigation %}
     <li><a href="{% url 'profile' %}">Profile</a></li>
@@ -12,12 +17,12 @@
 {% endblock navigation %}
 
 {% block content %}
-    <h1>Welcome to {{ city.name }}, {{ user.username|capfirst }}</h1>
-
+    <div class="panel">
+    <h1>Welcome to {{ city.name }}, {{ user.username|capfirst }}</h1><br>
     {% if user.balance.found %}
-        <h1>Congratulations on finding the person</h1>
+        <h2>Congratulations on finding the thing!</h2>
     {% else %}
-        <img src="{% static 'img/beijing-1.jpg' %}">
-        <h1>Too bad! Thing is not here</h1>
+        <h2>Too bad! The thing is not here</h2>
     {% endif %}
+    </div>
 {% endblock content %}
