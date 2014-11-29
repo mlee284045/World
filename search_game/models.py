@@ -3,6 +3,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class City(models.Model):
     current = models.BooleanField(default=False)
     visited = models.BooleanField(default=False)
@@ -45,7 +46,7 @@ class Balance(models.Model):
     def get_time_left_hours(self):
         time_left = self.end - self.start
         seconds = time_left.total_seconds()
-        return seconds/3600
+        return seconds / 3600
 
     def get_time_left_days(self):
-        return int(self.get_time_left_hours()/24)
+        return int(self.get_time_left_hours() / 24)
