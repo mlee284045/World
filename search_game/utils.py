@@ -11,20 +11,22 @@ def create_cities(f):
             except (IndexError, ValueError):
                 pass
 
+
 def move_cities(objects):
     with open('cities.csv', 'wb') as file:
         csv_writer = csv.writer(file)
         csv_writer.writerows(objects.values_list())
 
-def hiding_person():
-    return City.objects.get(name='Rome')
+
+def hiding_person(city_name):
+    return City.objects.get(name=city_name)
+
 
 def flight_cost(start, end):
     diff_lat = abs(start.latitude - end.latitude)
     diff_long = abs(start.longitude - end.longitude)
     if diff_long > 180:
         diff_long = 360 - diff_long
-    distance = (float(diff_lat)**2 + float(diff_long)**2)**(0.5)
-    in_pennies = int(distance**.66*5000)
-    return in_pennies//100
-
+    distance = (float(diff_lat) ** 2 + float(diff_long) ** 2) ** (0.5)
+    in_pennies = int(distance ** .66 * 5000)
+    return in_pennies // 100

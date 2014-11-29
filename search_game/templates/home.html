@@ -13,15 +13,24 @@
                 <h1>Welcome!</h1>
                 {% if user.is_authenticated %}
                     <p>{{ user.username|capfirst }}</p>
-                {% endif %}
+                    <p>Please carry on to your profile.</p>
+                    <button type="button" class="btn btn-default">
+                        <a href="{% url 'profile' %}">Profile</a>
+                    </button>
+                {% else %}
                 <div class="btn-group btn-group-lg">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-default"><a href="{% url 'login' %}">Login</a></button>
+                        <button type="button" class="btn btn-default">
+                            <a href="{% url 'login' %}">Login</a>
+                        </button>
                     </div>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-default"><a href="{% url 'register' %}">Register</a></button>
+                        <button type="button" class="btn btn-default">
+                            <a href="{% url 'register' %}">Register</a>
+                        </button>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
 {% endblock content %}

@@ -7,6 +7,7 @@ from search_game.models import City, Balance
 class CityAdmin(admin.ModelAdmin):
     pass
 
+
 @admin.register(Balance)
 class BalanceAdmin(admin.ModelAdmin):
     pass

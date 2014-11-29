@@ -5,14 +5,9 @@ from search_game.utils import hiding_person, flight_cost
 from world import settings
 from search_game.forms import CreateSearch, FindCity
 
-# Create your views here.
-
 
 def home(request):
-    if request.user.is_authenticated():
-        return redirect('profile')
-    else:
-        return render(request, 'home.html')
+    return render(request, 'home.html')
 
 
 def register(request):
@@ -20,12 +15,18 @@ def register(request):
         form = CreateSearch(request.POST)
         if form.is_valid():
             current_user = form.save()
-            current_user.email_user('Welcome!', 'Thanks for joining our website.', settings.DEFAULT_FROM_EMAIL)
-            Balance.objects.create(user=current_user, start=current_user.date_joined, end=(current_user.date_joined+timedelta(days=14)))
-            # Location.objects.create(current=True, user=current_user, city=City.objects.get(name='San Francisco'))
+            current_user.email_user(
+                'Welcome!',
+                'Thanks for joining our website.',
+                settings.DEFAULT_FROM_EMAIL
+            )
+            Balance.objects.create(
+                user=current_user,
+                start=current_user.date_joined,
+                end=(current_user.date_joined + timedelta(days=14))
+            )
             current_city = City.objects.get(name='San Francisco')
             current_city.arrive()
-            current_city.save()
             current_user.cities.add(current_city)
 
             return redirect('profile')
@@ -35,8 +36,7 @@ def register(request):
 
 
 def profile(request):
-    current = City.objects.get(current=True)
-    data = {'city': current}
+    data = {'city': City.objects.get(current=True)}
     return render(request, 'profile.html', data)
 
 
@@ -49,12 +49,21 @@ def map(request):
         if form.is_valid():
             new_city = form.cleaned_data['destination']
 
-            data = {'form': form, 'current': current_city, 'destination': new_city, 'cost': flight_cost(current_city, new_city)}
+            data = {
+                'form': form,
+                'current': current_city,
+                'destination': new_city,
+                'cost': flight_cost(current_city, new_city)
+            }
             # request.user.location.city = new_city
             # new_city.location.current = True
     else:
         form = FindCity()
-        data = {'current': current_city, 'destination': None, 'form': form}
+        data = {
+            'current': current_city,
+            'destination': None,
+            'form': form
+        }
     return render(request, 'map.html', data)
 
 
