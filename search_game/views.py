@@ -1,9 +1,10 @@
 from datetime import timedelta
 from django.shortcuts import render, redirect
 from search_game.models import City, Balance
-from search_game.utils import hiding_person, flight_cost
+from search_game.utils import flight_cost
 from world import settings
 from search_game.forms import CreateSearch, FindCity
+from random import randint
 
 
 def home(request):
@@ -20,14 +21,16 @@ def register(request):
                 'Thanks for joining our website.',
                 settings.DEFAULT_FROM_EMAIL
             )
+            current_city = City.objects.get(name='San Francisco')
+            random_city = randint(1, )
             Balance.objects.create(
                 user=current_user,
                 start=current_user.date_joined,
-                end=(current_user.date_joined + timedelta(days=14))
+                end=(current_user.date_joined + timedelta(days=14)),
+                current_city=current_city.id,
+
             )
-            current_city = City.objects.get(name='San Francisco')
-            current_city.arrive()
-            current_user.cities.add(current_city)
+
 
             return redirect('profile')
     else:
@@ -36,12 +39,12 @@ def register(request):
 
 
 def profile(request):
-    data = {'city': City.objects.get(current=True)}
+    data = {'city': City.objects.get(id=request.user.balance.current_city)}
     return render(request, 'profile.html', data)
 
 
 def map(request):
-    current_city = City.objects.get(current=True)
+    current_city = City.objects.get(id=request.user.balance.current_city)
     # current.location.current = False
     data = {'current': None, 'destination': None}
     if request.method == 'POST':
@@ -68,17 +71,11 @@ def map(request):
 
 
 def city_view(request, city_id):
-    arriving_from = City.objects.get(current=True)
     current_city = City.objects.get(id=city_id)
 
-    arriving_from.leave()
-    arriving_from.save()
-    current_city.arrive()
-    current_city.save()
-    request.user.cities.add(current_city)
-    hidden = hiding_person()
+    request.user.balance.arrive(current_city.id)
 
-    if current_city == hidden:
+    if current_city == request.user.hidden:
         request.user.balance.found = True
     data = {'city': current_city}
     return render(request, 'city_view.html', data)

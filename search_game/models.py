@@ -5,13 +5,10 @@ from django.db import models
 
 
 class City(models.Model):
-    current = models.BooleanField(default=False)
-    visited = models.BooleanField(default=False)
     name = models.CharField(max_length=50)
     country = models.CharField(max_length=2)
     latitude = models.DecimalField(max_digits=7, decimal_places=4)
     longitude = models.DecimalField(max_digits=7, decimal_places=4)
-    users = models.ManyToManyField(User, blank=True, related_name='cities')
 
     def __unicode__(self):
         return self.name
@@ -25,6 +22,10 @@ class City(models.Model):
 
 
 class Balance(models.Model):
+    hidden = models.IntegerField()
+    current_city = models.IntegerField()
+    visited_cities = models.CommaSeparatedIntegerField(blank=True, null=True, max_length=200)
+
     start = models.DateTimeField(blank=True)
     end = models.DateTimeField(null=True, blank=True)
     money = models.DecimalField(max_digits=7, decimal_places=2, default=5000.00)
@@ -34,6 +35,10 @@ class Balance(models.Model):
     def add_money(self, monies):
         self.money += monies
         return self.money
+
+    def arrive(self, city_id):
+        self.current_city = city_id
+        # self.visited_cities = self.visited_cities + ',{}'.format(city_id)
 
     def minus_money(self, monies):
         self.money -= monies
