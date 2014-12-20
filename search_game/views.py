@@ -70,12 +70,14 @@ def map(request):
 def city_view(request, city_id):
     arriving_from = City.objects.get(current=True)
     current_city = City.objects.get(id=city_id)
+
     arriving_from.leave()
     arriving_from.save()
     current_city.arrive()
     current_city.save()
     request.user.cities.add(current_city)
     hidden = hiding_person()
+
     if current_city == hidden:
         request.user.balance.found = True
     data = {'city': current_city}
