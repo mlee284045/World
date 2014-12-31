@@ -16,11 +16,11 @@ def register(request):
         form = CreateSearch(request.POST)
         if form.is_valid():
             current_user = form.save()
-            current_user.email_user(
-                'Welcome!',
-                'Thanks for joining our website.',
-                settings.DEFAULT_FROM_EMAIL
-            )
+            # current_user.email_user(
+            #     'Welcome!',
+            #     'Thanks for joining our website.',
+            #     settings.DEFAULT_FROM_EMAIL
+            # )
             current_city = City.objects.get(name='San Francisco')
             random_city = randint(1, )
             Balance.objects.create(
@@ -28,10 +28,7 @@ def register(request):
                 start=current_user.date_joined,
                 end=(current_user.date_joined + timedelta(days=14)),
                 current_city=current_city.id,
-
             )
-
-
             return redirect('profile')
     else:
         form = CreateSearch()

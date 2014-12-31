@@ -20,9 +20,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = '=+y)4l)tm*%z!iz3^*89=u4agnafo@)t!3wxw8^w9v$ufz(603'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-TEMPLATE_DEBUG = False
+TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -31,13 +31,14 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'django.contrib.contenttypes',
-    'search_game',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'search_game',
     'leaflet',
+    'debug_toolbar'
 )
 
 MIDDLEWARE_CLASSES = (
