@@ -22,7 +22,7 @@ def register(request):
             #     settings.DEFAULT_FROM_EMAIL
             # )
             current_city = City.objects.get(name='San Francisco')
-            random_city = randint(1, )
+            random_city = randint(1, 23)
             Balance.objects.create(
                 user=current_user,
                 start=current_user.date_joined,
