@@ -1,10 +1,11 @@
 from datetime import timedelta
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
 from search_game.models import City, Balance
 from search_game.utils import flight_cost
 from world import settings
 from search_game.forms import CreateSearch, FindCity
 from random import randint
+from django.contrib.auth.models import User
 
 
 def home(request):
@@ -28,8 +29,10 @@ def register(request):
                 start=current_user.date_joined,
                 end=(current_user.date_joined + timedelta(days=14)),
                 current_city=current_city.id,
+                hidden=random_city,
             )
-            return redirect('profile')
+            request.user = User.objects.get(id=current_user.id)
+            return redirect(profile)
     else:
         form = CreateSearch()
     return render(request, 'registration/register.html', {'form': form})

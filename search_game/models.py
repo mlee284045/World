@@ -22,8 +22,8 @@ class City(models.Model):
 
 
 class Balance(models.Model):
-    hidden = models.IntegerField()
-    current_city = models.IntegerField()
+    hidden = models.IntegerField(default=1)
+    current_city = models.IntegerField(default=2)
     visited_cities = models.CommaSeparatedIntegerField(blank=True, null=True, max_length=200)
 
     start = models.DateTimeField(blank=True)
