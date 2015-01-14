@@ -9,7 +9,7 @@ Currently there are many bugs due to my lack of knowledge and experience.
 
 Working on ironing out many of those bugs but I am discovering many more behind the ones I fixed.
 
--[ ] Current Bug/feature - Adding an endgame.
+- [ ] Current Bug/feature - Adding an endgame.
 - [ ] a bigger project
--[ ] CSS styling changes
--[ ] Update Nav bar to be more cohesive across pages
+- [ ] CSS styling changes
+- [ ] Update Nav bar to be more cohesive across pages
