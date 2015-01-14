@@ -5,5 +5,8 @@ Globe-trotting Mystery
 
 Inspired by childhood memories of Waldo and Carmen Sandiago
 
-Currently there are many bugs dues to me not knowing what I was doing
+Currently there are many bugs due to my lack of knowledge and experience.
 
+Working on ironing out many of those bugs but I am discovering many more behind the ones I fixed.
+
+Current Bug/feature - Adding an endgame.

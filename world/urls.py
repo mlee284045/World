@@ -7,6 +7,8 @@ urlpatterns = patterns('',
     url(r'^profile/$', 'search_game.views.profile', name='profile'),
     url(r'^map/$', 'search_game.views.map', name='map'),
     url(r'^city/(?P<city_id>\d+)/$', 'search_game.views.city_view', name='city_view'),
+    url(r'^profile/success/$', 'search_game.views.success', name='success'),
+    url(r'^profile/failure/$', 'search_game.views.failure', name='failure'),
 
     url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', name='logout'),

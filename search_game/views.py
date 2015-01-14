@@ -14,6 +14,14 @@ def home(request):
     return render(request, 'home.html')
 
 
+def success(request):
+    pass
+
+
+def failure(request):
+    pass
+
+
 def register(request):
     if request.method == 'POST':
         form = CreateSearch(request.POST)
@@ -82,7 +90,8 @@ def city_view(request, city_id):
     request.user.balance.arrive(current_city.id)
     request.user.balance.minus_money(cost)
     request.user.balance.save()
-
+    if request.user.balance.money < 0:
+        print 'Out of money'
     # if current_city == request.user.hidden:
         # request.user.balance.found = True
     data = {'city': current_city}
