@@ -11,7 +11,8 @@ Working on ironing out many of those bugs but I am discovering many more behind 
 
 ##### Current Bug/Features
 - [ ] Adding an endgame.
-_____
+
+
 ##### Future Bugs/Features
 - [ ] a bigger project
 - [ ] CSS styling changes
