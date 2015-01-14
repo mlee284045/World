@@ -10,8 +10,8 @@ Currently there are many bugs due to my lack of knowledge and experience.
 Working on ironing out many of those bugs but I am discovering many more behind the ones I fixed.
 
 ##### Current Bug/Features
-- [ ]  - Adding an endgame.
----
+- [ ] Adding an endgame.
+_____
 ##### Future Bugs/Features
 - [ ] a bigger project
 - [ ] CSS styling changes
