@@ -1,7 +1,7 @@
 Globe-trotting Mystery
 =====
 
-# First RocketU Project
+### First RocketU Project
 
 Inspired by childhood memories of Waldo and Carmen Sandiago
 

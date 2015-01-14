@@ -6,6 +6,8 @@ from world import settings
 from search_game.forms import CreateSearch, FindCity
 from random import randint
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
@@ -16,7 +18,9 @@ def register(request):
     if request.method == 'POST':
         form = CreateSearch(request.POST)
         if form.is_valid():
-            current_user = form.save()
+            form.save()
+            current_user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
+            # Code needs a legitimate mailing backend before being implemented
             # current_user.email_user(
             #     'Welcome!',
             #     'Thanks for joining our website.',
@@ -31,15 +35,16 @@ def register(request):
                 current_city=current_city.id,
                 hidden=random_city,
             )
-            request.user = User.objects.get(id=current_user.id)
+            # request.user = User.objects.get(id=current_user.id)
+            login(request, current_user)
             return redirect(profile)
     else:
         form = CreateSearch()
     return render(request, 'registration/register.html', {'form': form})
 
-
+@login_required
 def profile(request):
-    data = {'city': City.objects.get(id=request.user.balance.current_city)}
+    data = {'city': City.objects.get(id=request.user.balance.current_city), 'money': request.user.balance.money}
     return render(request, 'profile.html', data)
 
 
@@ -71,11 +76,14 @@ def map(request):
 
 
 def city_view(request, city_id):
+    previous_city = City.objects.get(id=request.user.balance.current_city)
     current_city = City.objects.get(id=city_id)
-
+    cost = flight_cost(previous_city, current_city)
     request.user.balance.arrive(current_city.id)
+    request.user.balance.minus_money(cost)
+    request.user.balance.save()
 
-    if current_city == request.user.hidden:
-        request.user.balance.found = True
+    # if current_city == request.user.hidden:
+        # request.user.balance.found = True
     data = {'city': current_city}
     return render(request, 'city_view.html', data)
