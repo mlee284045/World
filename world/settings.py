@@ -30,13 +30,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'search_game',
     'django.contrib.contenttypes',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'search_game',
     'leaflet',
     'debug_toolbar'
 )
@@ -84,7 +84,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 LOGIN_URL = 'login' #refers to name of url, not the actual link
-LOGIN_REDIRECT_URL = 'home'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'profile'
 
 STATIC_URL = '/static/'
 

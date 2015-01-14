@@ -1,6 +1,12 @@
 {% extends 'base_template.html' %}
 {% load staticfiles %}
 
+{% block navigation %}
+    <li><a href="{% url 'profile' %}">Profile</a></li>
+    <li><a href="{% url 'map' %}">Search</a></li>
+    <li><a href="{% url 'logout' %}">Logout</a></li>
+{% endblock navigation %}
+
 {% block content %}
 <h1>You have Failed</h1>
 {% endblock content %}

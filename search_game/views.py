@@ -15,11 +15,11 @@ def home(request):
 
 
 def success(request):
-    pass
+    return render(request, 'success.html')
 
 
 def failure(request):
-    pass
+    return render(request, 'failure.html')
 
 
 def register(request):
@@ -52,6 +52,8 @@ def register(request):
 
 @login_required
 def profile(request):
+    if request.user.balance.money < 0:
+        return redirect(failure)
     data = {'city': City.objects.get(id=request.user.balance.current_city), 'money': request.user.balance.money}
     return render(request, 'profile.html', data)
 
@@ -90,8 +92,7 @@ def city_view(request, city_id):
     request.user.balance.arrive(current_city.id)
     request.user.balance.minus_money(cost)
     request.user.balance.save()
-    if request.user.balance.money < 0:
-        print 'Out of money'
+    
     # if current_city == request.user.hidden:
         # request.user.balance.found = True
     data = {'city': current_city}
