@@ -11,9 +11,13 @@ Working on ironing out many of those bugs but I am discovering many more behind 
 
 ##### Current Bug/Features
 - [ ] Adding an endgame.
+  - [ ] Success finding the thing
+  - [ ] Failure finding the thing
+    - [ ] Could not find the thing on budget
+    - [ ] Could not find the thing on time
 
 
 ##### Future Bugs/Features
-- [ ] a bigger project
+- [ ] Restart game after winning or losing
 - [ ] CSS styling changes
 - [ ] Update Nav bar to be more cohesive across pages

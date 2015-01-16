@@ -38,7 +38,7 @@
         current.bindPopup('<b>{{ current.name }}, {{ current.country }}</b><br>You are here.').openPopup();
         {% if destination %}
         var destination = L.marker([{{ destination.latitude }}, {{ destination.longitude }}], {draggable:'true'}).addTo(map);
-        destination.bindPopup('<b>{{ destination.name }}, {{ destination.country }}</b><br>Costs: ${{ cost }}<a href="{% url 'city_view' destination.id %}"><div class="go">Go</div></a>').openPopup();
+        destination.bindPopup('<b>{{ destination.name }}, {{ destination.country }}</b><br>Cost: ${{ cost }}<br>Duration: {{ duration }} hrs<a href="{% url 'city_view' destination.id %}"><div class="go">Go</div></a>').openPopup();
         {% endif %}
     </script>
 {% endblock content %}

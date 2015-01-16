@@ -22,11 +22,20 @@ def hiding_person(city_name):
     return City.objects.get(name=city_name)
 
 
-def flight_cost(start, end):
+def flight_distance(start, end):
     diff_lat = abs(start.latitude - end.latitude)
     diff_long = abs(start.longitude - end.longitude)
     if diff_long > 180:
         diff_long = 360 - diff_long
     distance = (float(diff_lat) ** 2 + float(diff_long) ** 2) ** (0.5)
-    in_pennies = int(distance ** .66 * 5000)
-    return in_pennies // 100
+    return distance
+
+
+def flight_cost(distance):
+    cost = (int(distance ** .66 * 5000)) // 100
+    return cost
+
+
+def flight_time(distance):
+    time = distance * 10 // 90 
+    return time

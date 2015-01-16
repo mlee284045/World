@@ -1,7 +1,7 @@
 from datetime import timedelta
 from django.shortcuts import render, redirect, render_to_response
 from search_game.models import City, Balance
-from search_game.utils import flight_cost
+from search_game.utils import flight_distance, flight_cost, flight_time
 from world import settings
 from search_game.forms import CreateSearch, FindCity
 from random import randint
@@ -54,7 +54,7 @@ def register(request):
 def profile(request):
     if request.user.balance.money < 0:
         return redirect(failure)
-    data = {'city': City.objects.get(id=request.user.balance.current_city), 'money': request.user.balance.money}
+    data = {'city': City.objects.get(id=request.user.balance.current_city)}
     return render(request, 'profile.html', data)
 
 
@@ -66,12 +66,13 @@ def map(request):
         form = FindCity(request.POST)
         if form.is_valid():
             new_city = form.cleaned_data['destination']
-
+            distance = flight_distance(current_city, new_city)
             data = {
                 'form': form,
                 'current': current_city,
                 'destination': new_city,
-                'cost': flight_cost(current_city, new_city)
+                'cost': flight_cost(distance),
+                'duration': flight_time(distance),
             }
             # request.user.location.city = new_city
             # new_city.location.current = True
@@ -86,14 +87,20 @@ def map(request):
 
 
 def city_view(request, city_id):
+    
     previous_city = City.objects.get(id=request.user.balance.current_city)
     current_city = City.objects.get(id=city_id)
-    cost = flight_cost(previous_city, current_city)
-    request.user.balance.arrive(current_city.id)
+    distance = flight_distance(previous_city, current_city)
+    cost = flight_cost(distance)
+    time = flight_time(distance)
+    new_start = request.user.balance.start + timedelta(hours=time)
+
+    request.user.balance.arrive(city_id)
     request.user.balance.minus_money(cost)
+    request.user.balance.update_time(new_start)
     request.user.balance.save()
     
-    # if current_city == request.user.hidden:
-        # request.user.balance.found = True
+    if city_id == request.user.balance.hidden:
+        request.user.balance.found = True
     data = {'city': current_city}
     return render(request, 'city_view.html', data)
