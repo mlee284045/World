@@ -1,0 +1,14 @@
+{% extends 'base_template.html' %}
+{% load staticfiles %}
+
+{% block content %}
+	<h1>How much do you want to work?</h1>
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input value="Submit" type="submit">
+    </form>
+    {% if time > 0 %}
+    <a href="{% url 'work_complete' time %}">Get to Working</a>
+    {% endif %}
+{% endblock %}

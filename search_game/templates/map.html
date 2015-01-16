@@ -9,11 +9,6 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% endblock style %}
 
-{% block navigation %}
-    <li><a href="{% url 'profile' %}">Profile</a></li>
-    <li><a href="{% url 'logout' %}">Logout</a></li>
-{% endblock navigation %}
-
 {% block content %}
     <div class="panel">
         <h1>Where would you like to go next?</h1>

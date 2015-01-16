@@ -13,13 +13,6 @@ class City(models.Model):
     def __unicode__(self):
         return self.name
 
-    def arrive(self):
-        self.current = True
-        self.visited = True
-
-    def leave(self):
-        self.current = False
-
 
 class Balance(models.Model):
     hidden = models.IntegerField(default=1)

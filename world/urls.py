@@ -9,6 +9,8 @@ urlpatterns = patterns('',
     url(r'^city/(?P<city_id>\d+)/$', 'search_game.views.city_view', name='city_view'),
     url(r'^profile/success/$', 'search_game.views.success', name='success'),
     url(r'^profile/failure/$', 'search_game.views.failure', name='failure'),
+    url(r'^profile/work/$', 'search_game.views.work_start', name='work_start'),
+    url(r'^profile/work/(?P<time>\d+)/$', 'search_game.views.work_complete', name='work_complete'),
 
     url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', name='logout'),

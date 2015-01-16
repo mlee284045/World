@@ -11,13 +11,21 @@ Working on ironing out many of those bugs but I am discovering many more behind 
 
 ##### Current Bug/Features
 - [ ] Adding an endgame.
-  - [ ] Success finding the thing
-  - [ ] Failure finding the thing
-    - [ ] Could not find the thing on budget
-    - [ ] Could not find the thing on time
+  - [x] Success finding the thing
+    - Created a simple success landing page that user will be redirected to after finding the thing
+  - [x] Failure finding the thing
+    - Created a simple failure landing page that user will be redirected to after failing
+    - [x] Could not find the thing on 
+      - Flights will now substract cost from your budget as you fly
+    - [x] Could not find the thing on time
+      - Flights and working will now subtract time from your time limit
+  - [ ] Restart game after winning or losing
+    - [ ] Add a counter to see how many times you've won or lost
+- [x] Adding a way to increase budget by working
+  - You can now decide how many hours you want to work at any time
 
 
 ##### Future Bugs/Features
-- [ ] Restart game after winning or losing
 - [ ] CSS styling changes
 - [ ] Update Nav bar to be more cohesive across pages
+

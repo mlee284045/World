@@ -9,13 +9,6 @@
     {% endif %}
 {% endblock style %}
 
-
-{% block navigation %}
-    <li><a href="{% url 'profile' %}">Profile</a></li>
-    <li><a href="{% url 'map' %}">Map</a></li>
-    <li><a href="{% url 'logout' %}">Logout</a></li>
-{% endblock navigation %}
-
 {% block content %}
     <div class="panel">
     <h1>Welcome to {{ city.name }}, {{ user.username|capfirst }}</h1><br>

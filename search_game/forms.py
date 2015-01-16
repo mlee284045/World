@@ -19,3 +19,9 @@ class CreateSearch(UserCreationForm):
 
 class FindCity(forms.Form):
     destination = forms.ModelChoiceField(queryset=City.objects.all())
+
+
+class WorkHours(forms.Form):
+    hours = forms.IntegerField(max_value=336)
+
+        

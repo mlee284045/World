@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, render_to_response
 from search_game.models import City, Balance
 from search_game.utils import flight_distance, flight_cost, flight_time
 from world import settings
-from search_game.forms import CreateSearch, FindCity
+from search_game.forms import CreateSearch, FindCity, WorkHours
 from random import randint
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -11,6 +11,8 @@ from django.contrib.auth.decorators import login_required
 
 
 def home(request):
+    if request.user.is_authenticated:
+        return redirect(profile)
     return render(request, 'home.html')
 
 
@@ -20,6 +22,27 @@ def success(request):
 
 def failure(request):
     return render(request, 'failure.html')
+
+
+def work_start(request):
+    if request.method == 'POST':
+        form = WorkHours(request.POST)
+        if form.is_valid():
+            work_hours = form.cleaned_data['hours']
+            return redirect('{}/'.format(work_hours))
+    else:
+        form = WorkHours()
+        work_hours = 0
+    return render(request, 'work_start.html', {'form': form, 'time': work_hours})
+
+
+def work_complete(request, time):
+    new_start = request.user.balance.start + timedelta(hours=int(time))
+    request.user.balance.add_money(15*int(time))
+    request.user.balance.update_time(new_start)
+    request.user.balance.save()
+    data = {'money': 15*int(time)}
+    return render(request, 'work_complete.html', data)
 
 
 def register(request):
@@ -52,8 +75,9 @@ def register(request):
 
 @login_required
 def profile(request):
-    if request.user.balance.money < 0:
+    if (request.user.balance.money < 0) or (request.user.balance.get_time_left_hours() < 0):
         return redirect(failure)
+
     data = {'city': City.objects.get(id=request.user.balance.current_city)}
     return render(request, 'profile.html', data)
 
