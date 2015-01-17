@@ -1,12 +1,12 @@
 
 body {
-    background: #191970;
+    background: url('../img/giftly.png') repeat;
 }
 
 
 .footer {
     color: #ffffff;
-    background-color: rgba(0,0,0,0.7);
+    background: rgba(0,0,0,0.7);
     position: absolute;
     overflow: hidden;
     bottom: 0;

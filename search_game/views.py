@@ -16,6 +16,10 @@ def home(request):
     return render(request, 'home.html')
 
 
+def reset(request):
+    request.user.balance.reset()
+    return redirect(profile)
+
 def success(request):
     return render(request, 'success.html')
 

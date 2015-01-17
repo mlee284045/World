@@ -33,7 +33,7 @@ class Balance(models.Model):
         self.money += monies
         return self.money
 
-    def arrive(self, city_id):
+    def arrive(self, City_id):
         self.current_city = city_id
         # self.visited_cities = self.visited_cities + ',{}'.format(city_id)
 
@@ -41,14 +41,13 @@ class Balance(models.Model):
         self.money -= monies
         return self.money
 
-    def reset(self, time, win):
-        if win:
+    def reset(self):
+        if self.found:
             self.wins += 1
         self.restarts += 1
         self.start = datetime.now()
         self.end = self.start + timedelta(days=14)
         self.money = 5000.00
-        self.current_city = 2
         self.visited_cities = "2,"
         self.hidden = randint(1, 23)
         self.save()

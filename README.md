@@ -21,8 +21,8 @@ This was way more involved than I had originally thought. Seriously I have put m
       - Flights will now substract cost from your budget as you fly
     - [x] Could not find the thing on time
       - Flights and working will now subtract time from your time limit
-  - [ ] Restart game after winning or losing
-    - [ ] Add a counter to see how many times you've won or lost
+  - [x] Restart game after winning or losing
+    - [x] Add a counter to see how many times you've won or lost
 - [x] Adding a way to increase budget by working
   - You can now decide how many hours you want to work at any time
 - [ ] Need to fix the hidden thing mechanism
