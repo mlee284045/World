@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
+from datetime import timedelta, datetime
+from random import randint
 
 # Create your models here.
 
@@ -16,6 +18,8 @@ class City(models.Model):
 
 class Balance(models.Model):
     hidden = models.IntegerField(default=1)
+    restarts = models.IntegerField(default=0)
+    wins = models.IntegerField(default=0)
     current_city = models.IntegerField(default=2)
     visited_cities = models.CommaSeparatedIntegerField(blank=True, null=True, max_length=200)
 
@@ -36,6 +40,19 @@ class Balance(models.Model):
     def minus_money(self, monies):
         self.money -= monies
         return self.money
+
+    def reset(self, time, win):
+        if win:
+            self.wins += 1
+        self.restarts += 1
+        self.start = datetime.now()
+        self.end = self.start + timedelta(days=14)
+        self.money = 5000.00
+        self.current_city = 2
+        self.visited_cities = "2,"
+        self.hidden = randint(1, 23)
+        self.save()
+
 
     def update_time(self, time):
         self.start = time

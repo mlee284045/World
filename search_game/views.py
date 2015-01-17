@@ -77,7 +77,8 @@ def register(request):
 def profile(request):
     if (request.user.balance.money < 0) or (request.user.balance.get_time_left_hours() < 0):
         return redirect(failure)
-
+    elif request.user.balance.found:
+        return redirect(success)
     data = {'city': City.objects.get(id=request.user.balance.current_city)}
     return render(request, 'profile.html', data)
 
@@ -126,5 +127,6 @@ def city_view(request, city_id):
     
     if city_id == request.user.balance.hidden:
         request.user.balance.found = True
+
     data = {'city': current_city}
     return render(request, 'city_view.html', data)
